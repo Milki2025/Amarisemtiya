@@ -20,12 +20,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* --- НАСТРОЙКИ СТИЛЯ (PREMIUM VARIABLES) --- */
+        /* --- НАСТРОЙКИ СТИЛЯ --- */
         :root {
             --bg-dark: #051419;
             --bg-card: rgba(9, 32, 38, 0.7);
             --gold: #d4af37;
             --gold-gradient: linear-gradient(135deg, #bf953f 0%, #fcf6ba 40%, #b38728 80%, #fbf5b7 100%);
+            --telegram: #0088cc; /* Цвет Telegram */
+            --whatsapp: #25d366; /* Цвет WhatsApp */
             --text-main: #f5f5f5;
             --text-muted: #b8cdd1;
             --glass: rgba(5, 20, 25, 0.95);
@@ -80,7 +82,6 @@
             z-index: 1001;
         }
 
-        /* Десктопное меню */
         nav ul {
             display: flex;
             list-style: none;
@@ -98,7 +99,6 @@
 
         nav a:hover { color: var(--gold); }
 
-        /* Иконка гамбургера (скрыта на ПК) */
         .menu-toggle {
             display: none;
             font-size: 1.8rem;
@@ -132,16 +132,40 @@
             transition: all 0.4s ease;
             position: relative;
             z-index: 1;
+            margin: 10px; /* Отступ между кнопками */
         }
+        
         .btn:hover {
             box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
             transform: translateY(-3px);
             color: #000;
         }
 
+        /* Кнопка Telegram (Стиль) */
+        .btn-tg {
+            background: transparent;
+            border: 2px solid var(--telegram);
+            color: #fff;
+        }
+        .btn-tg:hover {
+            background: var(--telegram);
+            box-shadow: 0 0 25px rgba(0, 136, 204, 0.5);
+            color: #fff;
+        }
+
+        /* Кнопка WhatsApp (Стиль) */
+        .btn-wa {
+            background: transparent;
+            border: 2px solid var(--whatsapp);
+            color: #fff;
+        }
+        .btn-wa:hover {
+            background: var(--whatsapp);
+            box-shadow: 0 0 25px rgba(37, 211, 102, 0.5);
+            color: #fff;
+        }
+
         /* --- БЛОКИ КОНТЕНТА --- */
-        
-        /* 1. HERO */
         .hero {
             height: 100vh;
             background: linear-gradient(to bottom, rgba(5,20,25,0.3), rgba(5,20,25,1)), 
@@ -156,7 +180,6 @@
             font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; opacity: 0.9; margin-bottom: 20px;
         }
 
-        /* 2. INTRO */
         .intro {
             padding: 100px 0;
             background: url('texture.jpg') no-repeat center center/cover;
@@ -165,7 +188,6 @@
         }
         .intro p { font-size: 1.3rem; max-width: 800px; margin: 0 auto; color: var(--text-muted); }
 
-        /* 3. BENEFITS */
         .benefit-row {
             display: flex; align-items: center; min-height: 600px;
         }
@@ -188,7 +210,6 @@
         .state-card:hover { border-color: var(--gold); transform: translateY(-5px); }
         .state-card i { font-size: 2rem; color: var(--gold); margin-bottom: 20px; }
 
-        /* 4. ОТЗЫВЫ (НОВЫЙ БЛОК) */
         .reviews-section {
             padding: 100px 0;
             background: #06181e;
@@ -206,7 +227,6 @@
         .review-text { font-style: italic; color: #ccc; margin-bottom: 20px; }
         .review-author { font-family: var(--font-serif); color: var(--gold); }
 
-        /* 5. МЕТОДОЛОГИЯ */
         .methodology { padding: 100px 0; background: #051419; text-align: center; }
         .quote-box {
             margin-top: 50px; padding: 40px; border: 1px solid rgba(212,175,55,0.3);
@@ -214,12 +234,10 @@
         }
         .mission-text { font-family: var(--font-serif); font-size: 1.4rem; font-style: italic; }
 
-        /* 6. АВТОР */
         .author-section { display: flex; background: #000; }
         .author-text { flex: 1; padding: 80px; display: flex; flex-direction: column; justify-content: center; }
         .author-img { flex: 1; min-height: 600px; background: url('author.jpg') no-repeat center center/cover; filter: sepia(15%); }
 
-        /* 7. CTA */
         .steps-section {
             padding: 120px 20px;
             background: linear-gradient(rgba(5,20,25,0.9), rgba(5,20,25,0.95)), 
@@ -230,20 +248,28 @@
         .steps-list li { margin-bottom: 25px; display: flex; align-items: center; font-size: 1.2rem; }
         .step-num { font-family: var(--font-serif); font-size: 2.5rem; color: var(--gold); margin-right: 20px; }
 
-        /* FOOTER & WHATSAPP */
+        /* Footer */
         footer { background: #02080a; padding: 50px; text-align: center; color: #555; border-top: 1px solid #111; }
-        .whatsapp-float {
-            position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px;
-            background-color: #25d366; color: #FFF; border-radius: 50px;
-            display: flex; align-items: center; justify-content: center; font-size: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 999; transition: 0.3s;
-        }
-        .whatsapp-float:hover { transform: scale(1.1); }
+        .footer-link { color: var(--gold); text-decoration: none; transition: 0.3s; }
+        .footer-link:hover { color: #fff; }
 
-        /* --- МОБИЛЬНАЯ АДАПТАЦИЯ (RESPONSIVE) --- */
+        /* Плавающие кнопки */
+        .floating-buttons {
+            position: fixed; bottom: 30px; right: 30px; z-index: 999;
+            display: flex; flex-direction: column; gap: 15px;
+        }
+        .float-btn {
+            width: 55px; height: 55px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 28px; color: #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: 0.3s; text-decoration: none;
+        }
+        .float-wa { background-color: var(--whatsapp); }
+        .float-tg { background-color: var(--telegram); }
+        .float-btn:hover { transform: scale(1.1); }
+
+        /* Mobile */
         @media (max-width: 900px) {
             .menu-toggle { display: block; }
-            
             nav {
                 position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
                 background: var(--bg-dark);
@@ -257,9 +283,11 @@
 
             .hero h1 { font-size: 2.5rem; }
             .benefit-row, .benefit-row:nth-child(even), .author-section { flex-direction: column; }
-            .benefit-image, .author-img { width: 100%; height: 300px; order: -1; } /* Картинка сверху */
+            .benefit-image, .author-img { width: 100%; height: 300px; order: -1; }
             .benefit-content, .author-text { padding: 40px 20px; }
             .state-grid, .reviews-grid { grid-template-columns: 1fr; }
+            
+            .btn { width: 100%; margin: 10px 0; } /* Кнопки на всю ширину на телефоне */
         }
     </style>
 </head>
@@ -399,19 +427,29 @@
                 <li><span class="step-num">3</span> Получи путь восстановления энергии</li>
             </ul>
 
-            <a href="https://wa.me/491778383682" class="btn">Регистрация (WhatsApp)</a>
+            <div style="margin-top: 40px;">
+                <a href="https://wa.me/491778383682" class="btn btn-wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                <a href="https://t.me/NataliSem_amarisemtiya" class="btn btn-tg"><i class="fab fa-telegram-plane"></i> Telegram</a>
+            </div>
         </div>
     </section>
 
     <footer>
-        <p>+49 177 8383682</p>
-        <p>@NataliSem_amarisemtiya</p>
-        <p style="margin-top: 20px; font-size: 0.8rem; opacity: 0.5;">AMARISEMTIYA © 2025</p>
+        <p style="font-size: 1.1rem; color: #fff;">+49 177 8383682</p>
+        <p style="margin-top: 10px;">
+            Telegram: <a href="https://t.me/NataliSem_amarisemtiya" class="footer-link">@NataliSem_amarisemtiya</a>
+        </p>
+        <p style="margin-top: 30px; font-size: 0.8rem; opacity: 0.5;">AMARISEMTIYA © 2025</p>
     </footer>
 
-    <a href="https://wa.me/491778383682" class="whatsapp-float" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <div class="floating-buttons">
+        <a href="https://t.me/NataliSem_amarisemtiya" class="float-btn float-tg" target="_blank" title="Telegram">
+            <i class="fab fa-telegram-plane"></i>
+        </a>
+        <a href="https://wa.me/491778383682" class="float-btn float-wa" target="_blank" title="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
 
     <script>
         // Анимация при скролле
@@ -427,7 +465,7 @@
                 }
             }
         }
-        reveal(); // Запуск при загрузке
+        reveal();
 
         // Мобильное меню
         function toggleMenu() {
@@ -437,7 +475,7 @@
             
             if (nav.classList.contains('active')) {
                 icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times'); // Меняем иконку на крестик
+                icon.classList.add('fa-times');
             } else {
                 icon.classList.remove('fa-times');
                 icon.classList.add('fa-bars');
